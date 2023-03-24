@@ -1,0 +1,39 @@
+The code defines a blockchain implementation using python programming language. It uses Flask to enable HTTP access via API endpoints. It includes the following methods:
+
+Import statements:
+import flask: Flask is a micro web framework written in Python. It is used here to create HTTP endpoints for users to interact with the blockchain.
+
+import datetime: The module returns the current date and time as a string in the specified format.
+
+import json: The JSON (JavaScript Object Notation) module provides an easy way to encode and decode data in JSON format.
+
+import hashlib: The hashlib module implements a common interface to many different secure hash and message digest algorithms. It provides cryptographic functions that include MD5, SHA-1, SHA-224, SHA-256, SHA-384, and SHA-512.
+
+Class: Blockchain
+A class named “Blockchain” is defined that encapsulates the core functionality of a blockchain.
+
+Method: init
+This method initializes an empty chain list and calls the create_block method to create a genesis block.
+
+Method: create_block
+This method takes two arguments, a proof parameter and a previous_hash parameter. A new block is created that contains an index, timestamp, proof, and the previous_hash information. Finally, the block is appended to the chain list and returned for the miner confirmation.
+
+Method: get_previous_block
+This method just returns the last block in the chain, Chain is a list where each block is stored by appending.
+
+Method: proof_of_work
+This method is used to implement the consensus algorithm. This is done by performing a series of hash operations on the block with nonces until a block is discovered that produces the desired output. The proof must be unique for the block and satisfy certain conditions, to validate the proposed mined block. If found, the function returns that as a new nonce.
+
+Method: hash
+This function generates the SHA-256 (Secure Hash Algorithm) of the block. It first encodes the block in JSON using UTF-8 encoding.
+
+Method: chain_valid
+This function validates that the chain on the blockchain is valid by checking the integrity of each successive block in the system. It verifies the previous hash of each block with its parent-associated index record also appropriately elevated, and enabled with non-repeated content.
+
+App definition using Flask
+An instance of the app named “app” is created and route decorator is provided for mining a new block.
+
+Function: mine_block
+A GET method is defined to access the function. The proof-of-work algorithm is applied to find the nonce after retrieving the previous block data. The block data is then hashed and this new block is then appended as a new transaction unit within the current blockchain. Finally, its details are outputted in JSON format using the jsonify module.
+
+All of these elements come together to create a working implementation of a blockchain network that uses Python programming language.
