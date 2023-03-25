@@ -93,3 +93,46 @@ def is_valid():
 
 
 app.run(host = '0.0.0.0', port = 5000)
+
+import unittest
+import requests
+
+class TestBlockchain(unittest.TestCase):
+
+    def setUp(self):
+        self.base_url = 'http://localhost:5000'
+        self.headers = {'Content-Type': 'application/json'}
+        self.blockchain = Blockchain()
+
+    def test_mine_block(self):
+        # Test mining a block
+        response = requests.get(f'{self.base_url}/mine_block')
+        self.assertEqual(response.status_code, 200)
+        block = response.json()
+        self.assertIn('message', block)
+        self.assertIn('index', block)
+        self.assertIn('timestamp', block)
+        self.assertIn('proof', block)
+        self.assertIn('previous_hash', block)
+
+    def test_get_chain(self):
+        # Test getting the blockchain
+        response = requests.get(f'{self.base_url}/get_chain')
+        self.assertEqual(response.status_code, 200)
+        chain = response.json()
+        self.assertIn('chain', chain)
+        self.assertIn('length', chain)
+        self.assertIsInstance(chain['chain'], list)
+        self.assertIsInstance(chain['length'], int)
+
+    def test_is_valid(self):
+        # Test checking if the blockchain is valid
+        response = requests.get(f'{self.base_url}/is_valid')
+        self.assertEqual(response.status_code, 200)
+        result = response.json()
+        self.assertIn('message', result)
+        self.assertIn(result['message'], ['All good. The Blockchain is valid.', 'Houston, we have a problem. The Blockchain is not valid.'])
+
+if __name__ == '__main__':
+    unittest.main()
+
